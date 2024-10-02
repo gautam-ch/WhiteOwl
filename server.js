@@ -32,6 +32,10 @@ const startupSchema = new mongoose.Schema({
     required: true, // Ensure this field is required
     unique: true,
   },
+  startupAddress: {
+    type: String,
+    require: true,
+  },
   startupDetails: {
     type: String,
     required: true, // Ensure this field is required
@@ -61,6 +65,7 @@ app.post("/startup", async (req, res) => {
     const newStartup = new Startup({
       userName,
       startupName,
+      startupAddress,
       startupDetails,
     });
 

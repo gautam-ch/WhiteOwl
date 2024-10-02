@@ -89,110 +89,220 @@
     </div>
 
     <script>
-        function showContent(section) {
-            const mainContent = document.getElementById('mainContent');
-            const buttons = document.querySelectorAll('.sidebar-nav button');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+       // Update the showContent function to include all sections
+function showContent(section) {
+    const mainContent = document.getElementById('mainContent');
+    const buttons = document.querySelectorAll('.sidebar-nav button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
 
-            switch(section) {
-                case 'portfolio':
-                    mainContent.innerHTML = `
-                        <h1>Portfolio Overview</h1>
-                        <div class="grid">
-                            <div class="card">
-                                <h2>Portfolio Performance</h2>
-                                <canvas id="portfolioChart"></canvas>
-                            </div>
-                            <div class="card">
-                                <h2>Startup Distribution</h2>
-                                <canvas id="distributionChart"></canvas>
-                            </div>
-                        </div>
-                    `;
-                    new Chart(document.getElementById('portfolioChart'), {
-                        type: 'bar',
-                        data: {
-                            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                            datasets: [{
-                                label: 'Portfolio Growth',
-                                data: [12, 19, 3, 5],
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgb(75, 192, 192)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                    new Chart(document.getElementById('distributionChart'), {
-                        type: 'pie',
-                        data: {
-                            labels: ['Tech', 'Health', 'Finance', 'Education'],
-                            datasets: [{
-                                data: [12, 19, 3, 5],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        }
-                    });
-                    break;
-                case 'track-startups':
-                    mainContent.innerHTML = `
-                        <h1>Track Startups</h1>
-                        <div class="grid">
-                            <div class="card">
-                                <h2>Startup Performance</h2>
-                                <table id="startupTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Startup</th>
-                                            <th>Revenue</th>
-                                            <th>Growth</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Startup A</td>
-                                            <td>$100,000</td>
-                                            <td>20%</td>
-                                            <td>On Track</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Startup B</td>
-                                            <td>$50,000</td>
-                                            <td>10%</td>
-                                            <td>Needs Attention</td>
-                                        </tr>
-                                        <!-- Add more rows as needed -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                // Add cases for other sections
-                default:
-                    mainContent.innerHTML = `<h1>${section.charAt(0).toUpperCase() + section.slice(1).replace('-', ' ')}</h1><p>Content for ${section} goes here.</p>`;
+    switch(section) {
+        case 'overview':
+            mainContent.innerHTML = `
+                <h1>Investor Dashboard Overview</h1>
+                <div class="grid">
+                    <div class="card">
+                        <h2>Portfolio Summary</h2>
+                        <p>Total Investments: $10,000,000</p>
+                        <p>Number of Startups: 15</p>
+                        <p>Average ROI: 22%</p>
+                    </div>
+                    <div class="card">
+                        <h2>Recent Activities</h2>
+                        <ul>
+                            <li>New investment in TechStart Inc. - $500,000</li>
+                            <li>Exit from GrowFast Ltd. - 3x return</li>
+                            <li>Follow-up round for DataPro - $250,000</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            break;
+
+        case 'track-progress':
+            mainContent.innerHTML = `
+                <h1>Track Startup Progress</h1>
+                <div class="card">
+                    <table id="startupTable">
+                        <thead>
+                            <tr>
+                                <th>Company Name</th>
+                                <th>Industry</th>
+                                <th>Investment Needed</th>
+                                <th>Funded</th>
+                                <th>Equity Share</th>
+                                <th>Status</th>
+                                <th>Funding Type</th>
+                                <th>Founded Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Startup data will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            // Fetch and display startup data
+            fetchStartupData();
+            break;
+
+        case 'investment-opportunities':
+            mainContent.innerHTML = `
+                <h1>Investment Opportunities</h1>
+                <div class="grid">
+                    <div class="card">
+                        <h2>Hot Startups</h2>
+                        <ul>
+                            <li>AI Solutions Inc. - Seeking $2M for Series A</li>
+                            <li>GreenTech Innovations - Seeking $500K for Seed Round</li>
+                            <li>HealthTech Pro - Seeking $5M for Series B</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h2>Trending Industries</h2>
+                        <ol>
+                            <li>Artificial Intelligence</li>
+                            <li>Clean Energy</li>
+                            <li>Biotechnology</li>
+                            <li>Fintech</li>
+                        </ol>
+                    </div>
+                </div>
+            `;
+            break;
+
+        case 'portfolio-management':
+            mainContent.innerHTML = `
+                <h1>Portfolio Management</h1>
+                <div class="grid">
+                    <div class="card">
+                        <h2>Portfolio Distribution</h2>
+                        <canvas id="portfolioChart"></canvas>
+                    </div>
+                    <div class="card">
+                        <h2>Top Performers</h2>
+                        <ol>
+                            <li>TechPro Inc. - 250% growth</li>
+                            <li>BioSolutions - 180% growth</li>
+                            <li>FinanceAI - 150% growth</li>
+                        </ol>
+                    </div>
+                </div>
+            `;
+            // Create portfolio distribution chart
+            createPortfolioChart();
+            break;
+
+        case 'reports':
+            mainContent.innerHTML = `
+                <h1>Investment Reports</h1>
+                <div class="card">
+                    <h2>Quarterly Reports</h2>
+                    <ul>
+                        <li><a href="#">Q2 2024 Investment Report</a></li>
+                        <li><a href="#">Q1 2024 Investment Report</a></li>
+                        <li><a href="#">Q4 2023 Investment Report</a></li>
+                        <li><a href="#">Q3 2023 Investment Report</a></li>
+                    </ul>
+                </div>
+            `;
+            break;
+
+        default:
+            mainContent.innerHTML = `<h1>${section.charAt(0).toUpperCase() + section.slice(1)}</h1><p>Content for ${section} goes here.</p>`;
+    }
+}
+
+// Function to fetch and display startup data
+async function fetchStartupData() {
+    try {
+        const response = await fetch('http://localhost:5000/api/companies');
+        const data = await response.json();
+        const tableBody = document.querySelector('#startupTable tbody');
+        tableBody.innerHTML = '';
+        data.forEach(startup => {
+            const row = `
+                <tr>
+                    <td>${startup.companyName}</td>
+                    <td>${startup.industry}</td>
+                    <td>$${startup.investmentNeeded}</td>
+                    <td>$${startup.funded}</td>
+                    <td>${startup.equityShare}%</td>
+                    <td>${startup.status}</td>
+                    <td>${startup.fundingType}</td>
+                    <td>${startup.foundedYear}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    } catch (error) {
+        console.error('Error fetching startup data:', error);
+    }
+}
+
+// Function to create portfolio distribution chart
+function createPortfolioChart() {
+    const ctx = document.getElementById('portfolioChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['AI & Machine Learning', 'Biotech', 'Clean Energy', 'Fintech', 'Others'],
+            datasets: [{
+                data: [30, 20, 15, 25, 10],
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#4BC0C0',
+                    '#9966FF'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Portfolio Distribution by Industry'
             }
         }
+    });
+}
+
+// Add this to your existing styles
+document.head.insertAdjacentHTML('beforeend', `
+    <style>
+        #startupTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #startupTable th, #startupTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #startupTable th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        #startupTable tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        #startupTable tr:hover {
+            background-color: #ddd;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+    </style>
+`);
 
         // Initialize with portfolio overview content
         showContent('portfolio');

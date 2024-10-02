@@ -51,21 +51,27 @@
       <input
         type="text"
         id="userName"
-        name="username"
+        name="userName"
         placeholder="Your Name"
         required
       />
       <input
         type="text"
         id="startupName"
-        name="startup"
+        name="startupName"
         placeholder="Startup Name"
+        required
+      />
+      <input
+        id="startupAddress"
+        name="startupAddress"
+        placeholder="Startup Address"
         required
       />
       <textarea
         id="startupDetails"
+        name="startupDetails"
         placeholder="Startup Details"
-        name="details"
         required
       ></textarea>
       <button type="submit">Submit</button>
@@ -81,9 +87,11 @@
 
           const userName = document.getElementById("userName").value;
           const startupName = document.getElementById("startupName").value;
+          const startupAddress =
+            document.getElementById("startupAddress").value;
           const startupDetails =
             document.getElementById("startupDetails").value;
-          console.log(userName, startupName, startupDetails);
+
           const responseDiv = document.getElementById("response");
           responseDiv.textContent = "";
 
@@ -96,6 +104,7 @@
               body: JSON.stringify({
                 userName,
                 startupName,
+                startupAddress,
                 startupDetails,
               }),
             });

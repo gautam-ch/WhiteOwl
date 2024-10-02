@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES6", // Target ECMAScript version
+    "module": "commonjs", // Module system used (for Node.js)
+    "strict": true, // Enable strict type checking
+    "esModuleInterop": true, // Allow default imports from CommonJS modules
+    "forceConsistentCasingInFileNames": true, // Disallow inconsistent casing in imports
+    "skipLibCheck": true, // Skip type checking for all declaration files (.d.ts)
+    "noImplicitAny": true, // Warn on variables with `any` type
+    "moduleResolution": "node", // Module resolution strategy for Node.js
+    "resolveJsonModule": true, // Enable importing .json files
+    "allowSyntheticDefaultImports": true, // Allow default imports for modules with no default export
+    "baseUrl": ".", // Base directory for resolving non-relative module imports
+    "paths": {
+      "@/*": ["./src/*"] // Alias setup, maps `@/` to the `src/` folder
+    },
+    "outDir": "./dist", // Output folder for compiled files
+    "sourceMap": true // Generate source maps
+  },
+  "include": [
+    "src/**/*.ts", // Include all TypeScript files in the `src` folder
+    "src/**/*.js" // Include all JavaScript files in the `src` folder (optional)
+  ],
+  "exclude": [
+    "node_modules", // Exclude `node_modules` folder
+    "dist" // Exclude the `dist` folder (output directory)
+  ]
+}

@@ -47,12 +47,25 @@
   </head>
   <body>
     <h1>Startup Management</h1>
-    <form id="startup-form">
-      <input type="text" id="userName" placeholder="Your Name" required />
-      <input type="text" id="startupName" placeholder="Startup Name" required />
+    <form id="startup-form" method="POST">
+      <input
+        type="text"
+        id="userName"
+        name="username"
+        placeholder="Your Name"
+        required
+      />
+      <input
+        type="text"
+        id="startupName"
+        name="startup"
+        placeholder="Startup Name"
+        required
+      />
       <textarea
         id="startupDetails"
         placeholder="Startup Details"
+        name="details"
         required
       ></textarea>
       <button type="submit">Submit</button>
@@ -70,7 +83,7 @@
           const startupName = document.getElementById("startupName").value;
           const startupDetails =
             document.getElementById("startupDetails").value;
-
+          console.log(userName, startupName, startupDetails);
           const responseDiv = document.getElementById("response");
           responseDiv.textContent = "";
 

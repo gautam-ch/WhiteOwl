@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Startup Management</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      h1 {
+        color: #333;
+      }
+      form {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      button {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 3px;
+      }
+      button:hover {
+        background: #218838;
+      }
+      #response {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Startup Management</h1>
+    <form id="startup-form" method="POST">
+      <input
+        type="text"
+        id="userName"
+        name="username"
+        placeholder="Your Name"
+        required
+      />
+      <input
+        type="text"
+        id="startupName"
+        name="startup"
+        placeholder="Startup Name"
+        required
+      />
+      <textarea
+        id="startupDetails"
+        placeholder="Startup Details"
+        name="details"
+        required
+      ></textarea>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+      document
+        .getElementById("startup-form")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const userName = document.getElementById("userName").value;
+          const startupName = document.getElementById("startupName").value;
+          const startupDetails =
+            document.getElementById("startupDetails").value;
+          console.log(userName, startupName, startupDetails);
+          const responseDiv = document.getElementById("response");
+          responseDiv.textContent = "";
+
+          try {
+            const response = await fetch("http://localhost:3003/startup", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userName,
+                startupName,
+                startupDetails,
+              }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              responseDiv.textContent = "Success: " + data.message;
+              responseDiv.style.color = "green";
+            } else {
+              responseDiv.textContent = "Error: " + data.message;
+              responseDiv.style.color = "red";
+            }
+          } catch (error) {
+            responseDiv.textContent = "Error: " + error.message;
+            responseDiv.style.color = "red";
+          }
+        });
+    </script>
+  </body>
+</html>

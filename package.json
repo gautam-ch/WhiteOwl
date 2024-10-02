@@ -1,6 +1,31 @@
 {
+  "name": "whiteowl",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gautam-ch/WhiteOwl.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gautam-ch/WhiteOwl/issues"
+  },
+  "homepage": "https://github.com/gautam-ch/WhiteOwl#readme",
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "mongoose": "^8.7.0"
-  }
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
+    "nodemon": "^3.1.7"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
+  },
+  "description": ""
 }

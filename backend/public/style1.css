@@ -7,7 +7,7 @@ body {
 }
 
 header {
-  background-color: #F5D7C1;
+  background-color: #f5d7c1;
   color: #333333;
   padding: 10px 0;
   text-align: center;
@@ -22,7 +22,7 @@ h1 {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background-color: #FFF5E1;
+  background-color: #fff5e1;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -38,7 +38,7 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="password"]{
+input[type="password"] {
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
@@ -61,10 +61,9 @@ label {
   margin-bottom: 5px; /* Adds some space between the label and dropdown */
 }
 
-
 input[type="submit"] {
   padding: 10px;
-  background-color: #FF9C46;
+  background-color: #ff9c46;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -79,12 +78,12 @@ p {
 }
 
 a {
-  color: #FF9C46;
+  color: #ff9c46;
 }
 
 /* Footer Styles */
 footer {
-  background-color: #F5D7C1;
+  background-color: #f5d7c1;
   color: #333333;
   text-align: center;
   padding: 10px 0;

@@ -76,29 +76,6 @@ body {
 .btn-primary:hover {
   background-color: #D35400;
 }
-.btn-signup {
-  background-color: #30979b95;
-  color: #FFFFFF;
-  padding: 10px 20px;
-  font-size: 18px;
-  font-weight: bold;
-  text-decoration: none;
-  display: inline-block;
-  border: 2px solid #FFFFFF;
-  transition: all 0.3s ease;
-}
-
-.btn-signup:hover {
-  background-color: #FFFFFF;
-  color: #FF6600;
-  border-color: #000000;
-}
-
-.cta-section {
-  background-color: #FF6600;
-  padding: 40px 0;
-  text-align: center;
-}
 
 .btn-secondary {
   background-color: transparent;
@@ -172,6 +149,33 @@ body {
   background-color: var(--accent-color);
   color: var(--primary-color);
 }
+.btn-signup {
+  background-color: #ff7f00; /* Bright orange background */
+  color: #4b0082; /* Indigo text color */
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.btn-signup:hover {
+  background-color: #e67500; /* Darker orange on hover */
+  transform: translateY(-3px);
+}
+
+.btn-signup:active {
+  transform: translateY(1px);
+}
+
+
+
 
 footer {
   text-align: center;

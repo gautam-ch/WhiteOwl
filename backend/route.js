@@ -35,28 +35,27 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// Login Route
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).send("Invalid email or password");
+    if (!user) return res.status(400).json({ error: "Invalid email or password" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).send("Invalid email or password");
+    if (!isMatch) return res.status(400).json({ error: "Invalid email or password" });
 
     req.session.user = user;
 
-    // Redirect based on user role (optional)
+    // Redirect based on user role
     if (user.role === "funder") {
-      res.redirect("/funder-dashboard.html");
+      return res.json({ redirectUrl: "/funder-dashboard.html" });
     } else {
-      res.redirect("/investor-dashboard.html");
+      return res.json({ redirectUrl: "/investor-dashboard.html" });
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error logging in");
+    return res.status(500).json({ error: "Error logging in" });
   }
 });
 

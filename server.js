@@ -28,6 +28,7 @@ const startupSchema = new mongoose.Schema({
   startupName: {
     type: String,
     required: true, // Ensure this field is required
+    unique: true,
   },
   startupDetails: {
     type: String,
@@ -47,13 +48,20 @@ app.get("/", (req, res) => {
 app.post("/startup", async (req, res) => {
   const { userName, startupName, startupDetails } = req.body;
 
-  const newStartup = new Startup({
-    userName,
-    startupName,
-    startupDetails,
-  });
-
   try {
+    const existingStartup = await Startup.findOne({ startupName });
+    if (existingStartup) {
+      return res
+        .status(400)
+        .json({ message: "Startup with this name already exists." });
+    }
+
+    const newStartup = new Startup({
+      userName,
+      startupName,
+      startupDetails,
+    });
+
     // Save the startup to the database
     await newStartup.save();
     res.json({

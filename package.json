@@ -19,5 +19,8 @@
   "homepage": "https://github.com/gautam-ch/WhiteOwl#readme",
   "dependencies": {
     "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
   }
 }

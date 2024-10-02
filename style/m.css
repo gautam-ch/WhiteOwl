@@ -1,0 +1,207 @@
+/* Define color palette */
+:root {
+    --primary-color: #E67E22; /* Softer orange */
+    --secondary-color: #F5D6BA; /* Light peach */
+    --accent-color: #EFEFD0; /* Cream */
+    --text-color: #2C3E50; /* Deep blue-gray */
+    --background-color: #FEF9E7; /* Pale yellow creamy */
+    --white: #FFFFFF;
+    --black: #333333;
+  }
+  
+  /* General Styles */
+  body {
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background-color); /* Light creamy background */
+    color: var(--text-color);
+  }
+  
+  /* Header */
+  .main-header {
+    background-color: #f5d0af;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center; /* Centers the header horizontally */
+  }
+  
+  .navbar {
+    display: flex;
+    flex-direction: column; /* Stack logo and links vertically */
+    align-items: center; /* Align center horizontally */
+    padding: 0 50px;
+    width: 100%;
+  }
+  
+  .logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 15px; /* Adds space between logo and links */
+  }
+  
+  .nav-links {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links li:last-child {
+    margin-right: 0; /* Removes margin for last item */
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: var(--primary-color);
+  }
+  
+  /* CTA Buttons */
+ 
+  
+  .cta-buttons a {
+    margin-left: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #D35400;
+  }
+  
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+  }
+  
+  /* Main Content */
+  .login-container {
+    background-color: var(--accent-color); /* Cream background for login form */
+    padding: 50px;
+    max-width: 700px; /* Increased width of the container */
+    margin: 100px auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-container h2 {
+    color: var(--text-color);
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-color);
+  }
+  
+  .form-group input {
+    width: 100%; /* Ensures full width */
+    max-width: 650px; /* Increased input width */
+    padding: 15px; /* Increased padding */
+    font-size: 18px; /* Slightly larger text */
+    background-color: var(--white);
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    color: var(--text-color);
+  }
+  
+  .form-group input::placeholder {
+    color: var(--black);
+  }
+  
+  /* Submit Button */
+  /* Submit Button */
+.btn-login {
+    width: 30%; /* Set a new width for the button (adjust as needed) */
+    max-width: 500px; /* Set a new max-width for the button */
+    padding: 20px; /* Increased padding */
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-size: 18px; /* Slightly larger text */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block; /* Set display to block to enable centering */
+    margin: 0 auto; /* Center the button horizontally */
+  }
+  
+  .btn-login:hover {
+    background-color: #D35400;
+  }
+  
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: var(--text-color);
+    color: var(--white);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      padding: 20px;
+    }
+  
+    .nav-links {
+      margin-top: 20px;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .nav-links li {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  
+    .cta-buttons {
+      margin-top: 20px;
+    }
+  
+    .login-container {
+      padding: 30px;
+      max-width: 100%; /* Full width for smaller screens */
+      margin: 50px auto;
+    }
+  
+    .form-group input,
+    .btn-login {
+      max-width: 100%; /* Full width for inputs and buttons on smaller screens */
+    }
+  }
+  

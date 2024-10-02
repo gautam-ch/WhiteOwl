@@ -36,13 +36,31 @@ label {
   color: #333333;
 }
 
+input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"]{
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.role-dropdown {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  /* Optionally, you can add more styles */
+  width: 100%; /* Adjust width as needed */
+  box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+/* Optional: Add styles for the label for better alignment */
+label {
+  display: block; /* Makes the label take full width */
+  margin-bottom: 5px; /* Adds some space between the label and dropdown */
+}
+
 
 input[type="submit"] {
   padding: 10px;

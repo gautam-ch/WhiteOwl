@@ -19,7 +19,7 @@
         <label for="password">Password:</label>
         <input type="password" name="password" required />
         <label for="role">Role:</label>
-        <select name="role">
+        <select name="role" id="role" class="role-dropdown">
           <option value="funder">Founder</option>
           <option value="investor">Investor</option>
         </select>
@@ -31,4 +31,34 @@
       <p>&copy; 2024 Startup Pool</p>
     </footer>
   </body>
+  <script>
+    document.querySelector('form').addEventListener('submit', async function (e) {
+      e.preventDefault(); // Prevent the form from submitting the traditional way
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries()); // Convert form data to JSON
+      
+      try {
+        const response = await fetch(this.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          // Redirect to the appropriate dashboard
+          window.location.href = result.redirectUrl;
+        } else {
+          // Show error popup
+          alert(result.error || 'An unknown error occurred');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('Failed to log in, please try again later.');
+      }
+    });
+  </script>
+  
 </html>

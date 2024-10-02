@@ -5,9 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Founder Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* (Include the founder dashboard CSS here) */
+        :root {
+            --primary-color: #e67e22;
+            --secondary-color: #f39c12;
+            --background-color: #fdf6e3;
+            --text-color: #34495e;
+            --card-background: #fff;
+            --sidebar-background: #d35400;
+            --sidebar-text: #fff;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-background);
+            color: var(--sidebar-text);
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .sidebar h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--sidebar-text);
+        }
+        .sidebar-nav {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar-nav li {
+            margin-bottom: 10px;
+        }
+        .sidebar-nav button {
+            width: 100%;
+            padding: 12px;
+            background-color: transparent;
+            border: none;
+            color: var(--sidebar-text);
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .sidebar-nav button:hover, .sidebar-nav button.active {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        h1, h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 500;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        form input[type="text"], form input[type="month"], form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        form button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        form button:hover {
+            background-color: var(--secondary-color);
+        }
+        canvas {
+            max-width: 100%;
+            margin-top: 15px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -15,7 +166,7 @@
         <div class="sidebar">
             <h1>Founder Dashboard</h1>
             <ul class="sidebar-nav">
-                <li><button onclick="showContent('overview')" class="active">Overview</button></li>
+                <li><button onclick="showContent('overview')" class="active">KYC</button></li>
                 <li><button onclick="showContent('metrics')">Startup Metrics</button></li>
                 <li><button onclick="showContent('tasks')">Tasks & Milestones</button></li>
                 <li><button onclick="showContent('reports')">Monthly Reports</button></li>
@@ -37,48 +188,104 @@
             event.target.classList.add('active');
 
             switch(section) {
-                case 'overview':
-                    mainContent.innerHTML = `
-                        <h1>Startup Overview</h1>
-                        <div class="grid">
-                            <div class="card">
-                                <h2>Key Metrics</h2>
-                                <canvas id="metricsChart"></canvas>
-                            </div>
-                            <div class="card">
-                                <h2>Upcoming Deadlines</h2>
-                                <ul>
-                                    <li>Monthly Report - Due in 5 days</li>
-                                    <li>Investor Meeting - Next week</li>
-                                    <li>Product Launch - In 2 weeks</li>
-                                </ul>
-                            </div>
-                            <div class="card">
-                                <h2>Quick Stats</h2>
-                                <p>Monthly Active Users: 15,000</p>
-                                <p>Revenue: $50,000</p>
-                                <p>Burn Rate: $30,000/month</p>
-                                <p>Runway: 8 months</p>
-                            </div>
+        case 'overview':
+            mainContent.innerHTML = `
+                <h1>Company Investment Form</h1>
+                <div class="card">
+                    <form id="investmentForm">
+                        <div class="form-group">
+                            <label for="companyName">Company Name:</label>
+                            <input type="text" id="companyName" name="companyName" required />
                         </div>
-                    `;
-                    new Chart(document.getElementById('metricsChart'), {
-                        type: 'line',
-                        data: {
-                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                            datasets: [{
-                                label: 'Revenue',
-                                data: [12000, 19000, 15000, 25000, 22000, 30000],
-                                borderColor: 'rgb(75, 192, 192)',
-                                tension: 0.1
-                            }, {
-                                label: 'Users',
-                                data: [1000, 2000, 5000, 8000, 12000, 15000],
-                                borderColor: 'rgb(255, 99, 132)',
-                                tension: 0.1
-                            }]
-                        }
+                        <div class="form-group">
+                            <label for="industry">Industry:</label>
+                            <input type="text" id="industry" name="industry" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="investmentNeeded">Investment Needed (in $):</label>
+                            <input type="number" id="investmentNeeded" name="investmentNeeded" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="funded">Funded (in $):</label>
+                            <input type="number" id="funded" name="funded" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="equityShare">Equity Share (in %):</label>
+                            <input type="number" id="equityShare" name="equityShare" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="debt">Debt (in $):</label>
+                            <input type="number" id="debt" name="debt" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Current Status:</label>
+                            <select id="status" name="status" required>
+                                <option value="" disabled selected>Select status</option>
+                                <option value="Operating">Operating</option>
+                                <option value="Closed">Closed</option>
+                                <option value="Acquired">Acquired</option>
+                                <option value="Seeking Funding">Seeking Funding</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fundingType">Funding Type:</label>
+                            <select id="fundingType" name="fundingType" required>
+                                <option value="" disabled selected>Select funding type</option>
+                                <option value="Seed">Seed Funding</option>
+                                <option value="Series A">Series A</option>
+                                <option value="Series B">Series B</option>
+                                <option value="Series C">Series C</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="foundedYear">Founded Year:</label>
+                            <input type="number" id="foundedYear" name="foundedYear" required />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Submit Details</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+
+            // Add event listener for form submission
+            document.getElementById("investmentForm").addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const formData = {
+                    companyName: document.getElementById("companyName").value,
+                    industry: document.getElementById("industry").value,
+                    investmentNeeded: document.getElementById("investmentNeeded").value,
+                    funded: document.getElementById("funded").value,
+                    equityShare: document.getElementById("equityShare").value,
+                    debt: document.getElementById("debt").value,
+                    status: document.getElementById("status").value,
+                    fundingType: document.getElementById("fundingType").value,
+                    foundedYear: document.getElementById("foundedYear").value,
+                };
+
+                try {
+                    const response = await fetch("http://localhost:3000/api/companies", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(formData),
                     });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        alert("Form submitted successfully! Company ID: " + data._id);
+                        document.getElementById("investmentForm").reset();
+                    } else {
+                        alert("Error submitting the form.");
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("Error submitting the form.");
+                }
+            });
+
                     break;
                 case 'metrics':
                     mainContent.innerHTML = `
@@ -120,6 +327,48 @@
                         </div>
                     `;
                     // Add charts for user growth and revenue
+                    new Chart(document.getElementById('userGrowthChart'), {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                            datasets: [{
+                                label: 'User Growth',
+                                data: [1000, 2000, 5000, 8000, 12000, 15000],
+                                borderColor: '#3498db',
+                                backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Monthly User Growth'
+                                }
+                            }
+                        }
+                    });
+                    new Chart(document.getElementById('revenueChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                            datasets: [{
+                                label: 'Revenue',
+                                data: [12000, 19000, 15000, 25000, 22000, 30000],
+                                backgroundColor: '#e67e22',
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Monthly Revenue'
+                                }
+                            }
+                        }
+                    });
                     break;
                 case 'tasks':
                     mainContent.innerHTML = `
@@ -165,40 +414,42 @@
                 case 'reports':
                     mainContent.innerHTML = `
                         <h1>Monthly Reports</h1>
-                        <div class="card">
-                            <h2>Report Submission</h2>
-                            <form>
-                                <label for="report-month">Report Month:</label>
-                                <input type="month" id="report-month" name="report-month" required><br><br>
-                                <label for="report-content">Report Content:</label><br>
-                                <textarea id="report-content" name="report-content" rows="10" cols="50" required></textarea><br><br>
-                                <button type="submit">Submit Report</button>
-                            </form>
-                        </div>
-                        <div class="card">
-                            <h2>Previous Reports</h2>
-                            <table>
-                                <tr>
-                                    <th>Month</th>
-                                    <th>Submission Date</th>
-                                    <th>Action</th>
-                                </tr>
-                                <tr>
-                                    <td>May 2024</td>
-                                    <td>June 2, 2024</td>
-                                    <td><a href="#">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>April 2024</td>
-                                    <td>May 1, 2024</td>
-                                    <td><a href="#">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>March 2024</td>
-                                    <td>April 3, 2024</td>
-                                    <td><a href="#">View</a></td>
-                                </tr>
-                            </table>
+                        <div class="grid">
+                            <div class="card">
+                                <h2>Report Submission</h2>
+                                <form>
+                                    <label for="report-month">Report Month:</label>
+                                    <input type="month" id="report-month" name="report-month" required><br><br>
+                                    <label for="report-content">Report Content:</label><br>
+                                    <textarea id="report-content" name="report-content" rows="10" cols="50" required></textarea><br><br>
+                                    <button type="submit">Submit Report</button>
+                                </form>
+                            </div>
+                            <div class="card">
+                                <h2>Previous Reports</h2>
+                                <table>
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Submission Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <tr>
+                                        <td>May 2024</td>
+                                        <td>June 2, 2024</td>
+                                        <td><a href="#">View</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>April 2024</td>
+                                        <td>May 1, 2024</td>
+                                        <td><a href="#">View</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>March 2024</td>
+                                        <td>April 3, 2024</td>
+                                        <td><a href="#">View</a></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     `;
                     break;
@@ -208,17 +459,17 @@
                         <div class="grid">
                             <div class="card">
                                 <h2>Current Funding</h2>
-                                <p>Total Raised: $2,000,000</p>
-                                <p>Last Round: Seed</p>
-                                <p>Investors: Angel Investors, TechStars</p>
-                                <p>Runway: 8 months</p>
+                                <p><strong>Total Raised:</strong> $2,000,000</p>
+                                <p><strong>Last Round:</strong> Seed</p>
+                                <p><strong>Investors:</strong> Angel Investors, TechStars</p>
+                                <p><strong>Runway:</strong> 8 months</p>
                             </div>
                             <div class="card">
                                 <h2>Upcoming Funding</h2>
-                                <p>Target: Series A</p>
-                                <p>Amount: $5,000,000</p>
-                                <p>Planned Date: Q4 2024</p>
-                                <p>Status: Preparing pitch deck</p>
+                                <p><strong>Target:</strong> Series A</p>
+                                <p><strong>Amount:</strong> $5,000,000</p>
+                                <p><strong>Planned Date:</strong> Q4 2024</p>
+                                <p><strong>Status:</strong> Preparing pitch deck</p>
                             </div>
                             <div class="card">
                                 <h2>Funding History</h2>
@@ -325,8 +576,45 @@
             }
         }
 
-        // Initialize with overview content
-        showContent('overview');
+        document.head.insertAdjacentHTML('beforeend', `
+    <style>
+        #investmentForm {
+            display: grid;
+            gap: 15px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        #investmentForm button {
+            width: 100%;
+            padding: 12px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        #investmentForm button:hover {
+            background-color: var(--secondary-color);
+        }
+    </style>
+`);
     </script>
+</body>
+</html>
 </body>
 </html>

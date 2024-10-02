@@ -15,7 +15,12 @@ router.get("/signup.html", (req, res) => {
 router.get("/login.html", (req, res) => {
   res.sendFile(path.join(__dirname, '../login.html'));
 });
-
+router.get("/investor-dashboard.html",(req,res)=>{
+   res.send(path.join(__dirname, '../investor-dashboard.html'))
+})
+router.get("/funder-dashboard.html",(req,res)=>{
+  res.send(path.join(__dirname, '../funder-dashboard.html'))
+})
 // Register Route
 router.post("/signup", async (req, res) => {
   const { username, email, password, role } = req.body;
@@ -45,9 +50,9 @@ router.post("/login", async (req, res) => {
 
     // Redirect based on user role (optional)
     if (user.role === "funder") {
-      res.redirect("/funder-dashboard");
+      res.redirect("/funder-dashboard.html");
     } else {
-      res.redirect("/investor-dashboard");
+      res.redirect("/investor-dashboard.html");
     }
   } catch (err) {
     console.error(err);
@@ -56,14 +61,10 @@ router.post("/login", async (req, res) => {
 });
 
 // Funder (Admin) Dashboard Route - Access restricted to funders
-router.get("/funder-dashboard", authMiddleware("funder"), (req, res) => {
-  res.send("<h1>Welcome Funder to your Dashboard</h1>");
-});
+
 
 // Investor Dashboard Route - Access restricted to investors
-router.get("/investor-dashboard", authMiddleware("investor"), (req, res) => {
-  res.send("<h1>Welcome Investor to your Dashboard</h1>");
-});
+
 
 // Logout Route
 router.get("/logout", (req, res) => {

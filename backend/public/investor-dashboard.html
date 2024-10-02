@@ -1,21 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investor Dashboard</title>
-    <link rel="stylesheet" href="style1.css" />
-  </head>
-  <body>
-    <header class="header">
-      <h1>Investor Dashboard</h1>
-    </header>
-    <div class="dashboard container">
-      <p>Welcome, Investor. Explore investment opportunities here.</p>
-      <a href="/logout" class="btn-primary logout-btn">Log Out</a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+        }
+        .dashboard {
+            display: flex;
+            height: 100%;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+        .sidebar h1 {
+            margin-bottom: 30px;
+        }
+        .sidebar-nav {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar-nav li {
+            margin-bottom: 10px;
+        }
+        .sidebar-nav button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+            width: 100%;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+        .sidebar-nav button:hover, .sidebar-nav button.active {
+            background-color: #34495e;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #ecf0f1;
+            overflow-y: auto;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <h1>Investor Dashboard</h1>
+            <ul class="sidebar-nav">
+                <li><button onclick="showContent('portfolio')" class="active">Portfolio Overview</button></li>
+                <li><button onclick="showContent('track-startups')">Track Startups</button></li>
+                <li><button onclick="showContent('reports')">Monthly Reports</button></li>
+                <li><button onclick="showContent('messaging')">Messaging</button></li>
+                <li><button onclick="showContent('eir-grants')">EIR and Grants</button></li>
+                <li><button onclick="showContent('shortlisting')">Shortlisting & Selection</button></li>
+                <li><button onclick="showContent('fund-disbursal')">Fund Disbursal</button></li>
+            </ul>
+        </div>
+        <div class="main-content" id="mainContent">
+            <!-- Content will be dynamically loaded here -->
+        </div>
     </div>
-    <footer>
-      <p>&copy; 2024 My Brand</p>
-    </footer>
-  </body>
+
+    <script>
+        function showContent(section) {
+            const mainContent = document.getElementById('mainContent');
+            const buttons = document.querySelectorAll('.sidebar-nav button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            switch(section) {
+                case 'portfolio':
+                    mainContent.innerHTML = `
+                        <h1>Portfolio Overview</h1>
+                        <div class="grid">
+                            <div class="card">
+                                <h2>Portfolio Performance</h2>
+                                <canvas id="portfolioChart"></canvas>
+                            </div>
+                            <div class="card">
+                                <h2>Startup Distribution</h2>
+                                <canvas id="distributionChart"></canvas>
+                            </div>
+                        </div>
+                    `;
+                    new Chart(document.getElementById('portfolioChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                            datasets: [{
+                                label: 'Portfolio Growth',
+                                data: [12, 19, 3, 5],
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgb(75, 192, 192)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                    new Chart(document.getElementById('distributionChart'), {
+                        type: 'pie',
+                        data: {
+                            labels: ['Tech', 'Health', 'Finance', 'Education'],
+                            datasets: [{
+                                data: [12, 19, 3, 5],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        }
+                    });
+                    break;
+                case 'track-startups':
+                    mainContent.innerHTML = `
+                        <h1>Track Startups</h1>
+                        <div class="grid">
+                            <div class="card">
+                                <h2>Startup Performance</h2>
+                                <table id="startupTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Startup</th>
+                                            <th>Revenue</th>
+                                            <th>Growth</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Startup A</td>
+                                            <td>$100,000</td>
+                                            <td>20%</td>
+                                            <td>On Track</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Startup B</td>
+                                            <td>$50,000</td>
+                                            <td>10%</td>
+                                            <td>Needs Attention</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                // Add cases for other sections
+                default:
+                    mainContent.innerHTML = `<h1>${section.charAt(0).toUpperCase() + section.slice(1).replace('-', ' ')}</h1><p>Content for ${section} goes here.</p>`;
+            }
+        }
+
+        // Initialize with portfolio overview content
+        showContent('portfolio');
+    </script>
+</body>
 </html>

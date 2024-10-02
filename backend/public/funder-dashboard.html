@@ -1,21 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Funder Dashboard</title>
-    <link rel="stylesheet" href="style1.css" />
-  </head>
-  <body>
-    <header class="header">
-      <h1>Funder Dashboard</h1>
-    </header>
-    <div class="dashboard container">
-      <p>Welcome, Funder. Manage funding applications here.</p>
-      <a href="/logout" class="btn-primary logout-btn">Log Out</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founder Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* (Include the founder dashboard CSS here) */
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <h1>Founder Dashboard</h1>
+            <ul class="sidebar-nav">
+                <li><button onclick="showContent('overview')" class="active">Overview</button></li>
+                <li><button onclick="showContent('metrics')">Startup Metrics</button></li>
+                <li><button onclick="showContent('tasks')">Tasks & Milestones</button></li>
+                <li><button onclick="showContent('reports')">Monthly Reports</button></li>
+                <li><button onclick="showContent('funding')">Funding Status</button></li>
+                <li><button onclick="showContent('messages')">Messages</button></li>
+                <li><button onclick="showContent('resources')">Resources & Support</button></li>
+            </ul>
+        </div>
+        <div class="main-content" id="mainContent">
+            <!-- Content will be dynamically loaded here -->
+        </div>
     </div>
-    <footer>
-      <p>&copy; 2024 My Brand</p>
-    </footer>
-  </body>
+
+    <script>
+        function showContent(section) {
+            const mainContent = document.getElementById('mainContent');
+            const buttons = document.querySelectorAll('.sidebar-nav button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            switch(section) {
+                case 'overview':
+                    mainContent.innerHTML = `
+                        <h1>Startup Overview</h1>
+                        <div class="grid">
+                            <div class="card">
+                                <h2>Key Metrics</h2>
+                                <canvas id="metricsChart"></canvas>
+                            </div>
+                            <div class="card">
+                                <h2>Upcoming Deadlines</h2>
+                                <ul>
+                                    <li>Monthly Report - Due in 5 days</li>
+                                    <li>Investor Meeting - Next week</li>
+                                    <li>Product Launch - In 2 weeks</li>
+                                </ul>
+                            </div>
+                            <div class="card">
+                                <h2>Quick Stats</h2>
+                                <p>Monthly Active Users: 15,000</p>
+                                <p>Revenue: $50,000</p>
+                                <p>Burn Rate: $30,000/month</p>
+                                <p>Runway: 8 months</p>
+                            </div>
+                        </div>
+                    `;
+                    new Chart(document.getElementById('metricsChart'), {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                            datasets: [{
+                                label: 'Revenue',
+                                data: [12000, 19000, 15000, 25000, 22000, 30000],
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                            }, {
+                                label: 'Users',
+                                data: [1000, 2000, 5000, 8000, 12000, 15000],
+                                borderColor: 'rgb(255, 99, 132)',
+                                tension: 0.1
+                            }]
+                        }
+                    });
+                    break;
+                case 'metrics':
+                    mainContent.innerHTML = `
+                        <h1>Startup Metrics</h1>
+                        <div class="grid">
+                            <div class="card">
+                                <h2>User Growth</h2>
+                                <canvas id="userGrowthChart"></canvas>
+                            </div>
+                            <div class="card">
+                                <h2>Revenue</h2>
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                            <div class="card">
+                                <h2>Key Performance Indicators</h2>
+                                <table>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Value</th>
+                                        <th>Change</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Customer Acquisition Cost</td>
+                                        <td>$50</td>
+                                        <td style="color: green;">↓ 10%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lifetime Value</td>
+                                        <td>$500</td>
+                                        <td style="color: green;">↑ 5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Churn Rate</td>
+                                        <td>2.5%</td>
+                                        <td style="color: red;">↑ 0.5%</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                    // Add charts for user growth and revenue
+                    break;
+                case 'tasks':
+                    mainContent.innerHTML = `
+                        <h1>Tasks & Milestones</h1>
+                        <div class="grid">
+                            <div class="card">
+                                <h2>Upcoming Tasks</h2>
+                                <ul>
+                                    <li>Finalize product feature list - Due in 2 days</li>
+                                    <li>Prepare investor pitch deck - Due in 1 week</li>
+                                    <li>Hire senior developer - Due in 2 weeks</li>
+                                    <li>Launch marketing campaign - Due in 3 weeks</li>
+                                </ul>
+                            </div>
+                            <div class="card">
+                                <h2>Milestones</h2>
+                                <table>
+                                    <tr>
+                                        <th>Milestone</th>
+                                        <th>Target Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Beta Launch</td>
+                                        <td>June 15, 2024</td>
+                                        <td style="color: green;">Completed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1,000 Active Users</td>
+                                        <td>July 31, 2024</td>
+                                        <td style="color: orange;">In Progress</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Series A Funding</td>
+                                        <td>December 1, 2024</td>
+                                        <td style="color: gray;">Planned</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'reports':
+                    mainContent.innerHTML = `
+                        <h1>Monthly Reports</h1>
+                        <div class="card">
+                            <h2>Report Submission</h2>
+                            <form>
+                                <label for="report-month">Report Month:</label>
+                                <input type="month" id="report-month" name="report-month" required><br><br>
+                                <label for="report-content">Report Content:</label><br>
+                                <textarea id="report-content" name="report-content" rows="10" cols="50" required></textarea><br><br>
+                                <button type="submit">Submit Report</button>
+                            </form>
+                        </div>
+                        <div class="card">
+                            <h2>Previous Reports</h2>
+                            <table>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Submission Date</th>
+                                    <th>Action</th>
+                                </tr>
+                                <tr>
+                                    <td>May 2024</td>
+                                    <td>June 2, 2024</td>
+                                    <td><a href="#">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>April 2024</td>
+                                    <td>May 1, 2024</td>
+                                    <td><a href="#">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>March 2024</td>
+                                    <td>April 3, 2024</td>
+                                    <td><a href="#">View</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    `;
+                    break;
+                case 'funding':
+                    mainContent.innerHTML = `
+                        <h1>Funding Status</h1>
+                        <div class="grid">
+                            <div class="card">
+                                <h2>Current Funding</h2>
+                                <p>Total Raised: $2,000,000</p>
+                                <p>Last Round: Seed</p>
+                                <p>Investors: Angel Investors, TechStars</p>
+                                <p>Runway: 8 months</p>
+                            </div>
+                            <div class="card">
+                                <h2>Upcoming Funding</h2>
+                                <p>Target: Series A</p>
+                                <p>Amount: $5,000,000</p>
+                                <p>Planned Date: Q4 2024</p>
+                                <p>Status: Preparing pitch deck</p>
+                            </div>
+                            <div class="card">
+                                <h2>Funding History</h2>
+                                <table>
+                                    <tr>
+                                        <th>Round</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Pre-seed</td>
+                                        <td>$500,000</td>
+                                        <td>January 2023</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Seed</td>
+                                        <td>$1,500,000</td>
+                                        <td>November 2023</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'messages':
+                    mainContent.innerHTML = `
+                        <h1>Messages</h1>
+                        <div class="grid">
+                            <div class="card">
+                                <h2>Inbox</h2>
+                                <table>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>Subject</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    <tr>
+                                        <td>John Doe (Investor)</td>
+                                        <td>Question about user acquisition</td>
+                                        <td>June 10, 2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jane Smith (Mentor)</td>
+                                        <td>Advice on scaling operations</td>
+                                        <td>June 8, 2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TechStars Team</td>
+                                        <td>Upcoming demo day details</td>
+                                        <td>June 5, 2024</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="card">
+                                <h2>Compose Message</h2>
+                                <form>
+                                    <label for="recipient">To:</label>
+                                    <input type="text" id="recipient" name="recipient" required><br><br>
+                                    <label for="subject">Subject:</label>
+                                    <input type="text" id="subject" name="subject" required><br><br>
+                                    <label for="message">Message:</label><br>
+                                    <textarea id="message" name="message" rows="5" cols="30" required></textarea><br><br>
+                                    <button type="submit">Send Message</button>
+                                </form>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'resources':
+                    mainContent.innerHTML = `
+                        <h1>Resources & Support</h1>
+                        <div class="grid">
+                            <div class="card">
+                                <h2>Upcoming Events</h2>
+                                <ul>
+                                    <li>Pitch Practice Workshop - June 20, 2024</li>
+                                    <li>Networking Mixer - June 25, 2024</li>
+                                    <li>Founder's Retreat - July 15-17, 2024</li>
+                                </ul>
+                            </div>
+                            <div class="card">
+                                <h2>Mentor Network</h2>
+                                <p>Schedule a session with one of our mentors:</p>
+                                <ul>
+                                    <li>Sarah Johnson - Marketing Expert</li>
+                                    <li>Michael Chen - Tech Scaling Advisor</li>
+                                    <li>Emily Rodriguez - Financial Planning</li>
+                                </ul>
+                            </div>
+                            <div class="card">
+                                <h2>Resource Library</h2>
+                                <ul>
+                                    <li><a href="#">Pitch Deck Template</a></li>
+                                    <li><a href="#">Financial Modeling Guide</a></li>
+                                    <li><a href="#">Legal Document Templates</a></li>
+                                    <li><a href="#">HR Best Practices</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                default:
+                    mainContent.innerHTML = `<h1>${section.charAt(0).toUpperCase() + section.slice(1)}</h1><p>Content for ${section} goes here.</p>`;
+            }
+        }
+
+        // Initialize with overview content
+        showContent('overview');
+    </script>
+</body>
 </html>

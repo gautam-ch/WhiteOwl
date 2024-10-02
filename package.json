@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/gautam-ch/WhiteOwl/issues"
   },
-  "homepage": "https://github.com/gautam-ch/WhiteOwl#readme"
+  "homepage": "https://github.com/gautam-ch/WhiteOwl#readme",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
 }

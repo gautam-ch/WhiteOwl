@@ -52,7 +52,7 @@ app.get("/", (req, res) => {
 
 // Route to collect user and startup details
 app.post("/startup", async (req, res) => {
-  const { userName, startupName, startupDetails } = req.body;
+  const { userName, startupName, startupAddress, startupDetails } = req.body;
 
   try {
     const existingStartup = await Startup.findOne({ startupName });

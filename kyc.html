@@ -3,74 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Startup Management</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #f4f4f4;
-      }
-      h1 {
-        color: #333;
-      }
-      form {
-        background: white;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-      input,
-      textarea {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-      }
-      button {
-        background: #28a745;
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        border-radius: 3px;
-      }
-      button:hover {
-        background: #218838;
-      }
-      #response {
-        margin-top: 20px;
-        font-weight: bold;
-      }
-    </style>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style/m.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Startup Management</h1>
-    <form id="startup-form" method="POST">
-      <input
-        type="text"
-        id="userName"
-        name="username"
-        placeholder="Your Name"
-        required
-      />
-      <input
-        type="text"
-        id="startupName"
-        name="startup"
-        placeholder="Startup Name"
-        required
-      />
-      <textarea
-        id="startupDetails"
-        placeholder="Startup Details"
-        name="details"
-        required
-      ></textarea>
-      <button type="submit">Submit</button>
-    </form>
+    <header class="main-header">
+      <nav class="navbar">
+        <div class="logo">WHITE OWL</div>
+      </nav>
+    </header>
 
+    <main>
+      <div class="login-container">
+        <h2>Startup Management</h2>
+        <form id="startup-form" method="POST">
+          <div class="form-group">
+            <label for="kycId">Your Name</label>
+            <input type="text" id="userName" name="userName" required />
+          </div>
+          <div class="form-group">
+            <label for="username">Startup Name</label>
+            <input type="text" id="startupName" name="startupName" required />
+          </div>
+          <div class="form-group">
+            <label for="username">Startup Address</label>
+            <input id="startupAddress" name="startupAddress" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Startup Details</label>
+            <input id="startupDetails" name="startupDetails" required />
+          </div>
+
+          <button type="submit" class="btn-login">SUBMIT</button>
+        </form>
+      </div>
+    </main>
     <div id="response"></div>
 
     <script>
@@ -81,9 +53,11 @@
 
           const userName = document.getElementById("userName").value;
           const startupName = document.getElementById("startupName").value;
+          const startupAddress =
+            document.getElementById("startupAddress").value;
           const startupDetails =
             document.getElementById("startupDetails").value;
-          console.log(userName, startupName, startupDetails);
+
           const responseDiv = document.getElementById("response");
           responseDiv.textContent = "";
 
@@ -96,6 +70,7 @@
               body: JSON.stringify({
                 userName,
                 startupName,
+                startupAddress,
                 startupDetails,
               }),
             });

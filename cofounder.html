@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company Details for Investment</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+      .container {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .form-group select {
+        cursor: pointer;
+      }
+      .form-group button {
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .form-group button:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Company Details for Investment</h2>
+      <form id="investmentForm">
+        <div class="form-group">
+          <label for="companyName">Company Name:</label>
+          <input
+            type="text"
+            id="companyName"
+            name="companyName"
+            placeholder="Enter the company name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="industry">Industry:</label>
+          <input
+            type="text"
+            id="industry"
+            name="industry"
+            placeholder="Enter the industry"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="revenue">Revenue (in $):</label>
+          <input
+            type="number"
+            id="revenue"
+            name="revenue"
+            placeholder="Enter the revenue"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="growth">Growth (in percentage):</label>
+          <input
+            type="number"
+            id="growth"
+            name="growth"
+            placeholder="Enter the growth percentage"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="investment">Investment Needed (in $):</label>
+          <input
+            type="number"
+            id="investment"
+            name="investment"
+            placeholder="Enter the investment needed"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="funded">How Much Funded (in $):</label>
+          <input
+            type="number"
+            id="funded"
+            name="funded"
+            placeholder="Enter how much has been funded"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="equityShare">Equity Share (%):</label>
+          <input
+            type="number"
+            id="equityShare"
+            name="equityShare"
+            placeholder="Enter the equity share percentage"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="debt">Debt (in $):</label>
+          <input
+            type="number"
+            id="debt"
+            name="debt"
+            placeholder="Enter the total debt"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="status">Current Status:</label>
+          <select id="status" name="status" required>
+            <option value="" disabled selected>Select status</option>
+            <option value="Operating">Operating</option>
+            <option value="Closed">Closed</option>
+            <option value="Acquired">Acquired</option>
+            <option value="Seeking Funding">Seeking Funding</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="fundingType">Type of Funding:</label>
+          <select id="fundingType" name="fundingType" required>
+            <option value="" disabled selected>Select funding type</option>
+            <option value="Seed">Seed Funding</option>
+            <option value="Series A">Series A</option>
+            <option value="Series B">Series B</option>
+            <option value="Series C">Series C</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="foundedYear">Founded Year:</label>
+          <input
+            type="number"
+            id="foundedYear"
+            name="foundedYear"
+            placeholder="Enter the year the company was founded"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <button type="submit">Submit Details</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("investmentForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const formData = {
+            companyName: document.getElementById("companyName").value,
+            industry: document.getElementById("industry").value,
+            revenue: document.getElementById("revenue").value,
+            growth: document.getElementById("growth").value,
+            investmentNeeded: document.getElementById("investment").value,
+            funded: document.getElementById("funded").value,
+            equityShare: document.getElementById("equityShare").value,
+            debt: document.getElementById("debt").value,
+            status: document.getElementById("status").value,
+            fundingType: document.getElementById("fundingType").value,
+            foundedYear: document.getElementById("foundedYear").value,
+          };
+
+          try {
+            const response = await fetch(
+              "http://localhost:5000/api/companies",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+              }
+            );
+
+            if (response.ok) {
+              const data = await response.json();
+              console.log(data);
+              alert("Form submitted successfully!\n\nCompany ID: " + data._id);
+              document.getElementById("investmentForm").reset();
+            } else {
+              alert("Error submitting the form.");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("Error submitting the form.");
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -56,6 +56,15 @@ app.post("/api/companies", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+// GET route to retrieve all company details
+app.get("/api/companies", async (req, res) => {
+  try {
+    const companies = await Company.find();
+    res.status(200).json(companies);
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving company details" });
+ }
+});
 
 // API routes
 app.use("/", routes);

@@ -8,6 +8,7 @@ const routes = require("./route");
 const mongoose = require("mongoose");
 const cors = require('cors');
 const Company = require("./models/Company");
+const bodyParser = require("body-parser")
 
 dotenv.config(); // Load environment variables
 
@@ -46,14 +47,14 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// MongoDB connection
-mongoose
-  .connect("mongodb://localhost:27017/companyInvestment", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("MongoDB connection error:", err));
+// // MongoDB connection
+// mongoose
+//   .connect("mongodb://localhost:27017/companyInvestment", {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((err) => console.log("MongoDB connection error:", err));
 
 // POST endpoint to save company investment details
 app.post("/api/companies", async (req, res) => {

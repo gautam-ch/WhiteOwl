@@ -43,5 +43,11 @@ Once the server is running, open a browser and navigate to:http://localhost:3000
 - **Grants and EIR Management**: Handle grant applications, shortlisting, selection, and fund disbursement.
 
 
+## Team Contributions
+
+- **Gautam Chouhan**: Developed the user authentication system, including login and sign-up pages, and created the dashboards for both investors and founders.
+- **Daksh Kumar**: Designed the landing page and KYC form, and successfully resolved GitHub merge conflicts.
+- **Aryan Choudhary**: Built the backend for KYC submission and implemented functionality for tracking startup progress with above mentioned features.
+- **Shubham Jalwaniya**: Contributed to the design of the landing page and prepared the presentation.
 
 

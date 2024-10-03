@@ -6,7 +6,8 @@ const dotenv = require("dotenv");
 const connectDB = require("./db");
 const routes = require("./route");
 const mongoose = require("mongoose");
-const cors = require('cors');
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const Company = require("./models/Company");
 
 dotenv.config(); // Load environment variables
@@ -34,7 +35,7 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day
-  })
+  }),
 );
 
 // API routes
@@ -72,21 +73,21 @@ app.get("/api/companies", async (req, res) => {
     const companies = await Company.find();
     res.status(200).json(companies);
   } catch (error) {
-    res.status(500).json({ error: "Error retrieving company details" });
- }
+    res.status(500).json({ error: "Error retrieving company details" });
+  }
 });
 
 // GET route to retrieve all company details
-app.get('/api/companies/get', async (req, res) => {
+app.get("/api/companies/get", async (req, res) => {
   try {
-      const companies = await Company.find();
-      res.status(200).json(companies);
+    const companies = await Company.find();
+    res.status(200).json(companies);
   } catch (error) {
-      res.status(500).json({ error: 'Error retrieving company details' });
+    res.status(500).json({ error: "Error retrieving company details" });
   }
 });
 
 // Start server
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:3000`);
 });

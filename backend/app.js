@@ -9,7 +9,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const Company = require("./models/Company");
-const bodyParser = require("body-parser")
 
 dotenv.config(); // Load environment variables
 
